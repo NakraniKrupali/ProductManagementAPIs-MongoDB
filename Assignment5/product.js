@@ -60,7 +60,7 @@ router.get("/retrieve/pdroductOfCompany/:cid",async(req,res)=>{
     const companyData=await companyModel.find({companyId:companyId},{productId:true});
 
     if(companyData.length === 0){
-        res.json({data:"Seller not Found"});
+        res.json({data:"Company not Found"});
     }
     const productId=companyData[0].productId;
     const productData =await productModel.find({productId:productId})
