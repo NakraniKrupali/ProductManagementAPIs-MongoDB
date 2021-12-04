@@ -44,5 +44,26 @@ router.put("/updateProduct/:id",async(req,res)=>{
 //fetch all products of a seller
 router.get("/retrieve/pdroductOfSeller/:sid",async(req,res)=>{
     const sellerId=req.params.sid;
+    const sellerData=await sellerModel.find({sellerId:sellerId},{productId:true});
+
+    if(sellerData.length === 0){
+        res.json({data:"Seller not Found"});
+    }
+    const productId=sellerData[0].productId;
+    const productData =await productModel.find({productId:productId})
+    res.json({data:productData});
+});
+
+//fetch all products of a company
+router.get("/retrieve/pdroductOfCompany/:cid",async(req,res)=>{
+    const companyId=req.params.cid;
+    const companyData=await companyModel.find({companyId:companyId},{productId:true});
+
+    if(companyData.length === 0){
+        res.json({data:"Seller not Found"});
+    }
+    const productId=companyData[0].productId;
+    const productData =await productModel.find({productId:productId})
+    res.json({data:productData});
 });
 module.exports = router;
