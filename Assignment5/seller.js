@@ -42,12 +42,13 @@ router.put("/updateSeller/:id",async(req,res)=>{
 
 router.get("/retrieve/:pname",async(req,res)=>{
     const pname=req.params.pname;
-    const productData =await productModel.find({title : pname},{companyId:true});
+    const productData =await productModel.find({title : pname},{sellerId:true});
 
     if(productData.length == 0){
         return res.json({data : "no user in fullstack"});
     }
-    const  sellerId=productData[0]["sellerId"];
+    const  sellerId=productData[0].sellerId;
+    //console.log(sellerId);
     const sellerData =await sellerModel.find({sellerId : sellerId},{});
 
     return res.json({data:sellerData });
